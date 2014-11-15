@@ -1,0 +1,7 @@
+Versions log
+
+0.0.1v {
+	- Basic kernel => VGA driver, print function
+	- Boot configuration
+	- Build, install and test scripts
+}
