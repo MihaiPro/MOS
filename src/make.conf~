@@ -1,7 +1,0 @@
-# Variables
-PREFIX="~/cross" # There is compiler
-TARGET=i686-elf # Target of compiler
-PATH="$(PREFIX)/bin:$(PATH)" # "bin" dir of compiler
-
-AS=$(TARGET)-as
-CC=$(TARGET)-gcc

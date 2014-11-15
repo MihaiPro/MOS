@@ -1,8 +1,0 @@
-set -e
-. ./config.sh
-
-make clean
-make
-make install
-
-grub-mkrescue -o mos.iso sysroot
