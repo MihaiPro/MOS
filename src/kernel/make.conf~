@@ -1,0 +1,4 @@
+KERN_ARCH_OBJS = arch/tty.o \
+		arch/vga.o \
+
+KERN_OBJS = kernel.o \ 
