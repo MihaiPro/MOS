@@ -4,6 +4,9 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <tty.h>
+#include <vga.h>
+#include <string.h>
+#include <stdlib.h>
  
 /* Check if the compiler thinks if we are targeting the wrong operating system. */
 #if defined(__linux__)
@@ -20,8 +23,17 @@ extern "C" /* Use C linkage for kernel_main. */
 #endif
 void kernel_main()
 {
-	terminal_initialize();
-	/* Since there is no support for newlines in terminal_putchar yet, \n will
+	tty_initialize(COLOR_WHITE, COLOR_MAGENTA);
+	/* Since there is no support for newlines in tty_putchar yet, \n will
 	   produce some VGA specific character instead. This is normal. */
-	terminal_writestring("Hello, kernel World!\n");
+	char from[] = "Hello!";
+	char to[15];
+
+	tty_writestring("Hello, Kernel World!\n");
+	tty_writestring("This is my first kernel.\n");
+	strcpy(to, from);
+	tty_writestring(to);
+	tty_writestring("\n");
+	tty_writestring(itoa(1234));
+	tty_write_colored("\nThis is a test of \'tty_write_colored\'!", COLOR_BLUE, COLOR_RED);
 }

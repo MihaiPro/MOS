@@ -1,44 +1,42 @@
 .PHONY: all clean install install-kern install-lib install-boot
 
 INCLUDES = -Ikernel/include
-LIBS = 
+LIBS = -Lkernel/ -lkern -Llibc/ -lc
 
 LDFLAGS = -T kernel/arch/linker.ld -ffreestanding -O2 -nostdlib -lgcc
 ASMFLAGS = 
-CFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+
 
 # Objects
-KERN_ARCH_OBJS = $(K_ARCH_DIR)/tty.o \
-				$(K_ARCH_DIR)/vga.c \
-
 KERN_OBJS = $(KERN_DIR)/kernel.o \
-
-COBJS = $(KERN_ARCH_OBJS) \
-		$(KERN_OBJS) \
 
 ASMOBJS = boot/boot.S \
 
-ALL_OBJS = $(COBJS) \
+ALL_OBJS = $(KERN_OBJS) \
 		$(ASMOBJS)
 
+# Compile and link boot image
 all: mos.bin
 
 mos.bin: $(COBJS) $(ASMOBJS)
-	$(CC) $(LDFLAGS) -o mos.bin $(INCLUDES) $(ALL_OBJS)
+	$(CC) $(LDFLAGS) $(INCLUDES) $(ALL_OBJS) kernel/libkern.a libc/libc.a -o mos.bin
 
-%.o: %.c
-	$(CC) -c $< -o $@ $(CFLAGS) $(INCLUDES)
-
+# Compile all objects
 %.o: %.S
 	$(AS) -c $< -o $@
 
+# Copy all compiled files to 'sysroot' directory(target dir of iso file) 
 install: install-kern install-lib install-boot
 
 install-kern:
 	mkdir sysroot
 	mkdir sysroot/usr
-	cp -r kernel/include/ sysroot/usr/
+	mkdir sysroot/usr/include
+	cp kernel/include/*.* sysroot/usr/include
+	cp libc/include/*.* sysroot/usr/include
 	mkdir sysroot/usr/lib
+	cp kernel/libkern.a sysroot/usr/lib
+	cp libc/libc.a sysroot/usr/lib
 	mkdir sysroot/home
 	mkdir sysroot/boot
 	cp mos.bin sysroot/boot
@@ -49,6 +47,7 @@ install-boot:
 	mkdir sysroot/boot/grub
 	cp boot/grub.cfg sysroot/boot/grub 
 
+# Clean work space!
 clean: 
 	rm sysroot -r
 	rm mos.iso

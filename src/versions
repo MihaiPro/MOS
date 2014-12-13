@@ -4,4 +4,16 @@ Versions log
 	- Basic kernel => VGA driver, print function
 	- Boot configuration
 	- Build, install and test scripts
-}
+} (Done)
+
+0.0.2v {
+	- Create base of 'libc'
+	- Change text color
+	- Change background color
+} (Done)
+
+0.0.3v {
+	- 
+	- 
+	- 
+} 
