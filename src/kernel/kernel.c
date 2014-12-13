@@ -35,5 +35,6 @@ void kernel_main()
 	tty_writestring(to);
 	tty_writestring("\n");
 	tty_writestring(itoa(1234));
-	tty_write_colored("\nThis is a test of \'tty_write_colored\'!", COLOR_BLUE, COLOR_RED);
+	tty_write_colored("\nThis is a test of \'tty_write_colored\'!\n", COLOR_BLUE, COLOR_RED);
+	tty_writestring(htoa(0xABC));
 }

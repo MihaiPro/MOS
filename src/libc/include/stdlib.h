@@ -5,5 +5,6 @@
 #include <stdint.h>
 
 char *itoa(int i);
+char *htoa(int i);
 
 #endif

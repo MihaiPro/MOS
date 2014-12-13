@@ -5,7 +5,8 @@ INCLUDES = -Iinclude
 API_OBJS = 
 MATH_OBJS = 
 STDIO_OBJS = 
-STDLIB_OBJS = stdlib/itoa.o 
+STDLIB_OBJS = stdlib/itoa.o \
+				stdlib/htoa.o 
 STRING_OBJS = string/strlen.o \
 				string/strcpy.o \
 
